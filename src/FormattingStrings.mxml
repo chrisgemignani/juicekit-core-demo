@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import org.juicekit.util.Strings;
+		]]>
+	</fx:Script>
+
+	<fx:Style source="style.css"/>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:VGroup paddingTop="20" paddingLeft="20" gap="3">		
+		<s:Label text="Formatting numbers with Strings.format" styleName="jkHeader"/>
+		<mx:Spacer height="20"/>
+		<s:Label text="The raw number" styleName="jkNotes"/>
+		<s:Label styleName="jkHeader" text="{Strings.format('{0:0.0000}', slider.value)}"/>
+		<mx:Spacer height="20"/>
+		
+		
+		<s:Label text="{}"/>
+		<!--
+		The number is formatted with Strings.format		
+		-->
+		<s:Label text="The formatted number" styleName="jkNotes"/>
+		<s:Label styleName="jkHeader" text="{Strings.format('{0:' + tiFormat.text + '}', slider.value)}"/>
+		<mx:Spacer height="20"/>
+
+		<s:Label text="Enter a format" styleName="jkNotes"/>
+		<s:TextInput id="tiFormat" text="0"/>
+		
+		<!--
+		Some sample formats to get you started
+		-->
+		<s:HGroup>
+			<s:Label id="fmt1" text="0.00" styleName="jkNotesLink" click="tiFormat.text = fmt1.text"/>
+			<s:Label id="fmt2" text="0.0%" styleName="jkNotesLink" click="tiFormat.text = fmt2.text"/>
+			<s:Label id="fmt3" text="$#,##0" styleName="jkNotesLink" click="tiFormat.text = fmt3.text"/>
+			<s:Label id="fmt4" text="$#,##0;($#,##0);Zero" styleName="jkNotesLink" click="tiFormat.text = fmt4.text"/>			
+			<s:Label id="fmt5" text="00000" styleName="jkNotesLink" click="tiFormat.text = fmt5.text"/>			
+			<s:Label id="fmt6" text="0.00 lbs" styleName="jkNotesLink" click="tiFormat.text = fmt6.text"/>			
+		</s:HGroup>
+		<mx:Spacer height="20"/>
+		
+		<!--
+		Set the value with a slider
+		-->
+		<s:Label text="Use the slider to change the number" styleName="jkNotes"/>
+		<mx:Slider id="slider" minimum="-1000" maximum="1000" value="0" liveDragging="true" labels="[-1000,0,1000]"/>
+		<mx:Spacer height="20"/>
+	</s:VGroup>
+	
+</s:Application>

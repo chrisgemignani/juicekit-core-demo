@@ -1,0 +1,78 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+@font-face {
+	src: url('../resources/DroidSerif-Regular.ttf');
+	fontFamily: Droid;
+	fontStyle: normal;
+	fontWeight: normal;
+	advancedAntiAliasing: true;
+	cff:true;
+}
+@font-face {
+	src: url('../resources/DroidSerif-Bold.ttf');
+	fontFamily: Droid;
+	fontStyle: normal;
+	fontWeight: bold;
+	advancedAntiAliasing: true;
+	cff:true;
+}
+
+
+@font-face {
+	src: url('../resources/DroidSerif-Regular.ttf');
+	fontFamily: DroidNonCFF;
+	fontStyle: normal;
+	fontWeight: normal;
+	advancedAntiAliasing: true;
+	cff: false;
+}
+@font-face {
+	src: url('../resources/DroidSerif-Bold.ttf');
+	fontFamily: DroidNonCFF;
+	fontStyle: normal;
+	fontWeight: bold;
+	advancedAntiAliasing: true;
+	cff: false;
+}
+
+
+global {
+	fontFamily: Droid;	
+	fontSize: 14;
+    color: #333333;
+}
+
+.jkBody {
+	fontFamily: Droid;
+	fontWeight: normal;
+	fontSize: 14;
+}
+
+.jkHeader {
+	fontFamily: Droid;
+	fontWeight: bold;
+	fontSize: 24;
+}
+
+.jkNotes {
+	fontFamily: Droid;
+	fontWeight: normal;
+	fontSize: 12;
+	color: #999999;
+}
+
+
+.jkNotesLink {
+	fontFamily: Droid;
+	fontWeight: normal;
+	fontSize: 12;
+	color: #000099;
+	textDecoration: underline;
+}
+
+mx|DataGrid {
+	fontFamily: Droid;
+}
+

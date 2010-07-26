@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  frameRate="60" enterFrame="countTicks()"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:util="util.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.IVisualElement;
+			import mx.effects.Move;
+			import mx.effects.Parallel;
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			
+			import org.juicekit.animate.TransitionEvent;
+			import org.juicekit.animate.Transitioner;
+			import org.juicekit.util.Arrays;
+			import org.juicekit.util.Colors;
+			import org.juicekit.util.Strings;
+			
+			import spark.components.supportClasses.ItemRenderer;
+			import spark.effects.*;
+			import spark.effects.Fade;
+			import spark.effects.Move;
+			
+			import util.FPSCounter;
+			
+			
+			[Bindable]
+			public var ac:ArrayCollection = new ArrayCollection(Arrays.range(0, 300));
+			
+			public function animateJK():void {
+				
+				var t:Transitioner = new Transitioner(2);
+				var elts:int = dg.numElements;
+				for (var i:int = 0; i<elts; i++) {
+					var e:IVisualElement = dg.getElementAt(i);
+					var x:Number = Math.random()*500;
+
+					t.setValue(e, 'x', x);
+					t.setValue(e, 'y', Math.random()*500);
+					
+//					t.setValue(e, 'z', 250-Math.random()*500);
+//					t.setValue(e, 'alpha', Math.random());
+//					t.setValue(e, 'inner.backgroundColor', Colors.hsv(x/500, 1, 1));
+				}
+				t.optimize = true;
+				startAnimate();
+				t.removeEventListener(TransitionEvent.END, endAnimate);
+				t.addEventListener(TransitionEvent.END, endAnimate);
+				t.play();
+			}
+			
+						
+			[Bindable]
+			public var ticks:int = 0;
+						
+			public var starttime:Number = 0;
+			
+			[Bindable]
+			public var ts:Number = 0;
+			public var incrementTicks:Boolean = false;
+			
+			public function countTicks(e:Event=null):void {
+				if (incrementTicks) ticks += 1;
+			}
+			
+			
+			public function startAnimate():void {
+				incrementTicks = true;
+				ticks = 0;
+				starttime = getTimer();
+			}
+			
+			public function endAnimate(e:Event=null):void {
+				incrementTicks = false;
+				ts = getTimer() - starttime;
+			}
+			
+			public function animateFlex():void
+			{
+				var moveEffects:Parallel = new Parallel();
+				
+				var elts:int = dg.numElements;
+				for (var i:int = 0; i<elts; i++) {
+					var e:IVisualElement = dg.getElementAt(i);
+					
+					var move:spark.effects.Move3D = new spark.effects.Move3D(e);
+					move.duration = 2000;
+					move.applyLocalProjection = false;
+					move.removeLocalProjectionWhenComplete = true;
+
+					var x:Number = Math.random()*500;
+
+//					var clr:AnimateColor = new AnimateColor(e['inner']);
+//					clr.duration = 2000;
+//					clr.colorPropertyName = 'backgroundColor';
+//					clr.colorTo = Colors.hsv(x/500, 1, 1);					
+					
+//					moveEffects.addChild(clr);
+
+					move.xTo = x;
+					move.yTo = Math.random()*500;
+//					move.zTo = 250-Math.random()*500;
+
+					
+					moveEffects.addChild(move);
+
+//					var fade:spark.effects.Fade = new spark.effects.Fade(e);
+//					fade.duration = 2000;
+//					fade.alphaTo = Math.random();
+//					moveEffects.addChild(fade);
+				}
+				
+				startAnimate();
+				moveEffects.removeEventListener(EffectEvent.EFFECT_END, endAnimate);
+				moveEffects.addEventListener(EffectEvent.EFFECT_END, endAnimate);
+				moveEffects.play();
+				
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>	
+
+	<s:HGroup>
+		<s:Button label="animate juicekit" click="animateJK()"/>
+		<s:Button label="animate flex" click="animateFlex()"/>	
+		<s:Label text="{Strings.format('{0} secs {1} frames {2:0.0} fps', ts/1000, ticks, ticks / (ts/1000))}"/>
+	</s:HGroup>
+	
+	<s:DataGroup id="dg" height="500" width="500" dataProvider="{ac}">
+		<s:layout>
+			<s:BasicLayout/>
+		</s:layout>
+		
+		<s:itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer autoDrawBackground="true" x="{data}" y="{data}" depth="0" depth.hovered="1">
+					<fx:Script>
+						<![CDATA[
+							import mx.controls.Alert;
+							
+							import org.juicekit.util.Strings;
+							import org.juicekit.util.Colors;
+
+							
+							private function ch(event:MouseEvent):void {
+								var t:* = event.target.parent.parent;
+								var x:int = 0;
+							}
+						]]>
+					</fx:Script>
+					<s:states>
+						<s:State name="normal"/>
+						<s:State name="hovered"/>
+					</s:states>
+					<s:SkinnableContainer id="inner" backgroundColor="{Colors.hsv(this.x/500,1,1)}" backgroundColor.hovered="blue" backgroundAlpha="0.5" backgroundAlpha.hovered="1" scaleX.hovered="4" height="10" width="10" click="ch(event)">
+					</s:SkinnableContainer>
+				</s:ItemRenderer>				
+			</fx:Component>
+		</s:itemRenderer>	
+		
+	</s:DataGroup>
+	
+</s:Application>

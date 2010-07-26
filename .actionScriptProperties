@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="Main.mxml" projectUUID="13b77af8-df2a-4877-a015-f4a6e56be984" version="6">
+<actionScriptProperties analytics="false" mainApplicationPath="AnimationAndContainers.mxml" projectUUID="13b77af8-df2a-4877-a015-f4a6e56be984" version="6">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -15,8 +15,12 @@
   </compiler>
   <applications>
     <application path="FormattingStrings.mxml"/>
-    <application path="Main.mxml"/>
-    <application path="Filtering.mxml"/>
+    <application path="InactivityTest.mxml"/>
+    <application path="AnimationAndContainers.mxml"/>
+    <application path="BrowserResizerTest.mxml"/>
+    <application path="AnimationTest.mxml"/>
+    <application path="FilteringAndSorting.mxml"/>
+    <application path="InactivityMXMLTest.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

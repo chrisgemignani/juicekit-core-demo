@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:local="*" xmlns:containers="org.juicekit.containers.*">
+
+
+	<!---
+	BrowserCanvas automatically resizes the size of the embedded swf in the HTML
+	page to match the size of the application. As the application resizes,  
+	browser scollbars will be added to allow the user to scroll the application.
+	-->
+	
+	
+	<fx:Declarations>
+		<containers:BrowserCanvas/>
+	</fx:Declarations>
+	
+	<fx:Style source="style.css"/>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:VGroup id="container" height="100%" width="100%" paddingTop="20" paddingLeft="20" paddingRight="20" paddingBottom="20">	
+		<s:Label text="Using browser scrollbars" styleName="jkHeader"/>
+		<s:Label text="Including an instance of BrowserCanvas will automatically resize the embedded object in the HTML page to match the size of your SWF. This means that browser scollbars will appear instead of Flex scrollbars. " width="480" styleName="jkBase"/>
+		<s:Button label="Set pink box height to 1500" click="inner.height = 1500"/>
+		<s:Button label="Set pink box height to 150" click="inner.height = 150"/>
+		<s:Button label="Set pink box width to 2000" click="inner.width = 2000"/>
+		<s:Button label="Set pink box width to 200" click="inner.width = 200"/>
+		<s:HGroup id="hgrouper">
+			<s:SkinnableContainer id="inner" height="200" width="200" backgroundColor="red" backgroundAlpha="0.2"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:Application>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:events="org.juicekit.events.*">
+	
+	<!---
+	This demonstrates using InactivityMonitor in MXML code.
+	-->
+	
+
+	<fx:Declarations>
+		<!--
+		Monitor the watchme box for mouse events or key presses
+		-->
+		<events:InactivityMonitor id="monitor" monitor="{watchme}" jkInactivityPeriod="watchme.setStyle('backgroundColor', 'blue')"/>
+	</fx:Declarations>
+	
+	<fx:Style source="style.css"/>
+	
+	<s:VGroup paddingTop="20" paddingLeft="20">
+		<s:Label text="Inactivity Monitoring" styleName="jkHeader"/>
+		<s:Label text="This box will turn blue after 5 seconds of inactivity." styleName="jkBase"/>
+		<s:SkinnableContainer id="watchme" width="100" height="100"  backgroundColor="red" click="watchme.setStyle('backgroundColor', 'red')">
+			<s:Label text="Click to reset" color="white" fontSize="14" paddingTop="10" paddingLeft="5"/>
+		</s:SkinnableContainer>
+	</s:VGroup>
+	
+</s:Application>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  width="500" height="300" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="application1_creationCompleteHandler(event)" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="500" minHeight="300">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import org.juicekit.events.InactivityEvent;
+			import org.juicekit.events.InactivityMonitor;
+			
+			protected var monitor:InactivityMonitor;
+
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				monitor = new InactivityMonitor(watchme);
+				// Set custom inactivity events
+				monitor.setMonitoredEvents([MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_MOVE]);
+				monitor.addEventListener(InactivityEvent.JK_INACTIVITY_PERIOD, function(e:Event):void {
+					watchme.setStyle('backgroundColor', 'blue');
+				});
+			}
+
+
+		]]>
+	</fx:Script>
+
+	<fx:Style source="style.css"/>
+	
+	<s:VGroup paddingTop="20" paddingLeft="20">
+		<s:Label text="Inactivity Monitoring" styleName="jkHeader"/>
+		<s:Label text="This box will turn blue after 5 seconds of inactivity. Click or mouse on it to prevent it from becoming inactive." width="470" styleName="jkBase"/>
+		<s:SkinnableContainer id="watchme" width="100" height="100"  backgroundColor="red" click="watchme.setStyle('backgroundColor', 'red')">
+			<s:Label text="Click to reset" color="white" fontSize="14" paddingTop="10" paddingLeft="5"/>
+		</s:SkinnableContainer>
+	</s:VGroup>
+
+</s:Application>

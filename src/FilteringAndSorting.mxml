@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import org.juicekit.util.Filter;
+			import org.juicekit.util.Sort;
+			
+			import util.TestModel;
+			
+			/**
+			 * Sample data
+			 */
+			[Bindable]
+			public var ac:ArrayCollection = new ArrayCollection([
+				{ name: 'Chris', val: 1 },
+				{ name: 'Zach', val: 2 },
+				{ name: 'David', val: 2 },
+				{ name: 'Djamshed', val: 3 },
+				new TestModel('Meghna', 20),
+				new TestModel('Shalini', 4),
+				new TestModel('Jon', 20),
+				new TestModel('Adrian', 2),
+			]);
+			
+						
+			/**
+			 * Use the Filter.$ constructor to select only rows
+			 * that are instances of <code>TestModel</code>.
+			 */
+			protected function checkTestModel(event:Event):void
+			{
+				ac.filterFunction = Filter.$(TestModel);
+				ac.refresh();
+			}
+			
+			/**
+			 * Sort by params
+			 */
+			protected function sortAC(params:Array=null):void
+			{
+				Sort.sortArrayCollectionBy(ac, params);
+			}
+			
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style source="style.css"/>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:VGroup paddingTop="20" paddingLeft="20">
+		<s:Label text="Filtering and sorting" styleName="jkHeader"/>
+		<s:Label text="This illustrates filtering and sorting convenience methods" styleName="jkBase"/>
+		<s:Button click="checkTestModel(event)" label="Filtering: TestModel instances only" styleName="jkBase"/>
+		<s:Button click="sortAC(['-val', '-name'])" label="Sort: ['-val', '-name']" styleName="jkBase"/>
+		<s:Button click="sortAC(['val', '-name'])" label="Sort: ['val', '-name']" styleName="jkBase"/>
+		<mx:DataGrid dataProvider="{ac}" fontFamily="Arial" rowCount="10"/>		
+	</s:VGroup>
+	
+	
+</s:Application>

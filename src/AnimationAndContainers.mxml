@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:container="org.juicekit.container.*" xmlns:containers="org.juicekit.containers.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.Fade;
+			
+			import org.juicekit.animate.Pause;
+			import org.juicekit.animate.Sequence;
+			import org.juicekit.animate.Transition;
+			import org.juicekit.animate.Transitioner;
+			import org.juicekit.animate.Tween;
+			
+			protected function animateFlow():void
+			{
+				// Transitioners and Tweens can setStyle or set properties
+				// and automatically use color transitions on color properties.
+				var t:Tween = new Tween(flow, 0.5, { width: 100, height: 300, fromColor: 0x00ff00, toColor: 0xff6600, fromAlpha: Math.random(), toAlpha: Math.random(), toAmount:Math.random(), fromAmount:Math.random()});
+				t.play();
+			}
+			
+			protected function animateSequence():void {
+				var t:Transitioner = new Transitioner();
+				t.duration = 2.0;
+				t.setValue(container1, 'height', 50);
+				t.setValue(container2, 'width', 150);
+				t.setValue(container1, 'backgroundColor', 0x0000ff);
+				t.setValue(container2, 'backgroundColor', 0x006666);
+				t.setValue(container1, 'alpha', 1);
+
+				var t2:Transitioner = new Transitioner();
+				t2.setValue(container1, 'height', 150);
+				t2.setValue(container2, 'width', 50);
+				t2.setValue(container1, 'backgroundColor', 0x00ffff);
+				t2.setValue(container2, 'backgroundColor', 0x3366ff);
+				t2.setValue(container1, 'alpha', .1);
+			
+				var seq:Sequence = new Sequence(t, new Pause(1), t2);
+				seq.play();
+				
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Style source="style.css"/>
+	
+	<s:VGroup paddingLeft="20" paddingTop="20">
+		<s:Label text="Animating a FlowCanvas" styleName="jkHeader"/>
+		<s:Label text="A FlowCanvas can be used to seamlessly connect containers. Click the button to animate changes in the FlowCanvas." width="480" styleName="jkBase"/>
+		<s:Button label="Click to animate" click="animateFlow()"/>
+		<s:HGroup gap="0">
+			<containers:FlowCanvas id="flow" height="200" width="300" fromColor="0xff0000" toColor="0x0000ff" fromAlpha="1" toAlpha="0.2" fromAmount="1" toAmount="0.2"/>
+			<containers:FlowCanvas id="flow2" height="{flow.height}" width="300" fromColor="{flow.toColor}" toColor="0x0000ff" fromAlpha="{flow.toAlpha}" toAlpha="0.8" fromAmount="{flow.toAmount}" toAmount="0.2"/>
+		</s:HGroup>		
+		
+		<mx:Spacer height="20"/>
+		<s:Label text="Animating a Container" styleName="jkHeader"/>
+		<s:Label text="This illustrates a sequenced animation. " styleName="jkBase"/>
+		<s:Button label="Click to animate" click="animateSequence()"/>
+		<s:HGroup>
+			<s:BorderContainer id="container1" backgroundColor="red" height="100" width="100">
+				<s:Label text="This is some interior text" styleName="jkNotes" color="white" width="100%"/>
+			</s:BorderContainer>
+				
+			<s:BorderContainer id="container2" backgroundColor="red" height="100" width="100">
+				<s:Label text="This is some interior text" styleName="jkNotes" color="white" width="100%"/>				
+			</s:BorderContainer>			
+		</s:HGroup>
+	</s:VGroup>
+</s:Application>
